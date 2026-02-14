@@ -10,13 +10,12 @@
       </div>
       <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow">
         <li><a routerLink="/" routerLinkActive="text-primary font-bold">Inicio</a></li>
-        <li><a routerLink="/libros" routerLinkActive="text-primary font-bold">Libros</a></li>
+        <li><a routerLink="/libros" routerLinkActive="text-primary font-bold">Catálogo de Libros</a></li>
 
         @if (isAdmin) {
           <li class="menu-title text-opacity-50 mt-2">Administración</li>
-          <li><a routerLink="/prestamos" routerLinkActive="active">Préstamos</a></li>
-          <li><a routerLink="/usuarios" routerLinkActive="active">Usuarios</a></li>
-        }
+          <li><a routerLink="/usuarios" routerLinkActive="active">Gestionar Usuarios</a></li>
+          }
       </ul>
     </div>
 
@@ -39,10 +38,13 @@
         <li>
           <details>
             <summary class="font-bold text-primary">Gestión</summary>
-            <ul class="p-2 bg-base-100 w-40 z-[50] shadow-lg">
-              <li><a routerLink="/prestamos">Préstamos</a></li>
-              <li><a routerLink="/usuarios">Usuarios</a></li>
-            </ul>
+            <ul class="p-2 bg-base-100 w-48 z-[50] shadow-lg rounded-box">
+              <li>
+                <a routerLink="/usuarios" routerLinkActive="text-primary font-bold">
+                   👥 Usuarios
+                </a>
+              </li>
+              </ul>
           </details>
         </li>
       }
@@ -52,24 +54,24 @@
   <div class="navbar-end gap-2">
 
     @if (isLoggedIn) {
-      <span class="hidden md:inline font-medium text-sm mr-2">
+      <span class="hidden md:inline font-medium text-sm mr-2 opacity-70">
         Hola, {{ username }}
       </span>
 
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder bg-neutral text-neutral-content">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder bg-neutral text-neutral-content ring ring-primary ring-offset-base-100 ring-offset-2">
           <div class="w-10 rounded-full">
             <span>{{ username?.slice(0,2)?.toUpperCase() }}</span>
           </div>
         </div>
         <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
           <li class="menu-title">Rol: {{ isAdmin ? 'Bibliotecario' : 'Estudiante' }}</li>
-          <li><a (click)="logout()" class="text-error">Cerrar Sesión</a></li>
+          <li><a (click)="logout()" class="text-error font-bold">Cerrar Sesión</a></li>
         </ul>
       </div>
 
     } @else {
-      <a routerLink="/login" class="btn btn-primary btn-sm">
+      <a routerLink="/login" class="btn btn-primary btn-sm px-6">
         Ingresar
       </a>
     }
