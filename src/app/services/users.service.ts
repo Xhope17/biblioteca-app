@@ -13,8 +13,12 @@ export class UsersService {
     return this.http.get<User[]>(`${this.baseUrl}/Usuarios`);
   }
 
-  // Agregamos este método
   deleteUsuario(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/Usuarios/${id}`);
+  }
+
+  // --- NUEVO MÉTODO ---
+  createUsuario(user: User): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Usuarios`, user);
   }
 }
