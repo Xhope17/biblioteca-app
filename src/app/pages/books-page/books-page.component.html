@@ -1,0 +1,66 @@
+<div class="animate-fade-in-down p-4">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-primary">Catálogo Bibliográfico</h1>
+    @if (isAdmin) {
+      <button class="btn btn-secondary shadow-md">+ Nuevo Libro</button>
+    }
+  </div>
+
+  @if (loading) {
+    <div class="flex justify-center py-20">
+      <span class="loading loading-bars loading-lg text-primary"></span>
+    </div>
+  }
+
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+  >
+    @for (book of books; track book.idLibro) {
+      <div
+        class="card bg-base-100 shadow-lg hover:shadow-2xl border border-base-200"
+      >
+        <figure class="h-64 bg-base-200 relative overflow-hidden">
+          <img
+            [src]="book.imagenUrl || 'assets/no-image.png'"
+            class="w-full h-full object-cover"
+          />
+
+          <div class="absolute top-3 right-3 z-10">
+            @if (book.stock > 0) {
+              <div class="badge badge-success text-white font-bold">
+                {{ book.stock }} disp.
+              </div>
+            } @else {
+              <div class="badge badge-error text-white font-bold">Agotado</div>
+            }
+          </div>
+        </figure>
+
+        <div class="card-body p-5">
+          <h2 class="card-title text-lg line-clamp-2">{{ book.titulo }}</h2>
+          <p class="text-sm text-gray-500">{{ book.autor }}</p>
+
+          <div class="card-actions justify-end mt-4">
+            @if (isAdmin) {
+              <button
+                class="btn btn-primary btn-sm w-full"
+                [disabled]="book.stock === 0"
+                (click)="abrirModal(book)"
+              >
+                {{ book.stock > 0 ? "Registrar Préstamo" : "Sin Stock" }}
+              </button>
+            } @else {
+              <div class="badge badge-outline w-full text-green-300">Disponible</div>
+            }
+          </div>
+        </div>
+      </div>
+    } @empty {
+      @if (!loading) {
+        <p>No hay libros.</p>
+      }
+    }
+  </div>
+
+  <book-loan-modal (loanConfirmed)="cargarLibros()"></book-loan-modal>
+</div>

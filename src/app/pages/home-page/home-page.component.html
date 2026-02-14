@@ -1,48 +1,43 @@
-<div class="mb-8">
-  <h1 class="text-3xl font-bold mb-2">Catálogo Disponible</h1>
-  <p class="text-gray-500">Explora nuestra colección de libros físicos.</p>
-</div>
+<div class="hero min-h-[80vh] bg-base-200 rounded-box">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold text-primary">Biblioteca UG</h1>
+      <p class="py-6">
+        Bienvenido al sistema de gestión bibliotecaria de la Facultad de Ingeniería.
+        Consulta nuestro acervo bibliográfico, revisa la disponibilidad y acércate
+        a ventanilla para solicitar tu material.
+      </p>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="flex justify-center gap-4">
+        <a routerLink="/libros" class="btn btn-primary">
+          Ver Catálogo
+        </a>
 
-  @for (libro of libros; track libro.idLibro) {
-    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
-
-      <figure class="h-48 bg-gray-200">
-        @if (libro.imagenUrl) {
-          <img [src]="libro.imagenUrl" [alt]="libro.titulo" class="w-full h-full object-cover" />
-        } @else {
-          <div class="flex flex-col items-center justify-center text-gray-400">
-            <span class="text-4xl">📚</span>
-            <span class="text-sm mt-2">Sin portada</span>
-          </div>
-        }
-      </figure>
-
-      <div class="card-body p-4">
-        <div class="flex justify-between items-start">
-          <h2 class="card-title text-lg leading-tight">{{ libro.titulo }}</h2>
-          @if (libro.stock > 0) {
-            <div class="badge badge-success badge-outline text-xs">Stock: {{ libro.stock }}</div>
-          } @else {
-            <div class="badge badge-error text-xs text-white">Agotado</div>
-          }
-        </div>
-
-        <p class="text-sm text-gray-500 italic">{{ libro.autor }}</p>
-
-        <div class="card-actions justify-end mt-4">
-          <button class="btn btn-primary btn-sm w-full" [disabled]="libro.stock === 0">
-            {{ libro.stock > 0 ? 'Solicitar Préstamo' : 'No disponible' }}
-          </button>
-        </div>
+        <a routerLink="/login" class="btn btn-outline">
+          Iniciar Sesión
+        </a>
       </div>
     </div>
-  } @empty {
-    <div class="col-span-full text-center py-10">
-      <span class="loading loading-spinner loading-lg text-primary"></span>
-      <p class="mt-4">Cargando libros...</p>
-    </div>
-  }
+  </div>
+</div>
 
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body items-center text-center">
+      <h2 class="card-title">📚 Acervo Físico</h2>
+      <p>Miles de libros de ingeniería a tu disposición.</p>
+    </div>
+  </div>
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body items-center text-center">
+      <h2 class="card-title">⚡ Disponibilidad Real</h2>
+      <p>Consulta el stock en tiempo real desde tu casa.</p>
+    </div>
+  </div>
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body items-center text-center">
+      <h2 class="card-title">🎓 Uso Exclusivo</h2>
+      <p>Para estudiantes y docentes de la universidad.</p>
+    </div>
+  </div>
 </div>
