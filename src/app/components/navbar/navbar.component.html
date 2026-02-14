@@ -1,43 +1,77 @@
-<div class="navbar bg-base-100 shadow-md mb-4 rounded-box">
-  <div class="flex-1">
-    <a routerLink="/" class="btn btn-ghost text-xl">📚 BibliotecaApp</a>
+<div class="navbar bg-base-100 shadow-sm mb-6 rounded-box">
+
+  <div class="navbar-start">
+
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
+      </div>
+      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow">
+        <li><a routerLink="/" routerLinkActive="text-primary font-bold">Inicio</a></li>
+        <li><a routerLink="/libros" routerLinkActive="text-primary font-bold">Libros</a></li>
+
+        @if (isAdmin) {
+          <li class="menu-title text-opacity-50 mt-2">Administración</li>
+          <li><a routerLink="/prestamos" routerLinkActive="active">Préstamos</a></li>
+          <li><a routerLink="/usuarios" routerLinkActive="active">Usuarios</a></li>
+        }
+      </ul>
+    </div>
+
+    <a routerLink="/" class="btn btn-ghost text-xl">
+      📚 Biblioteca <span class="text-primary">| UG</span>
+    </a>
   </div>
 
-  <div class="flex-none hidden lg:flex">
-    <ul class="menu menu-horizontal px-1 gap-2">
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1 gap-1">
 
-      <li><a routerLink="/" routerLinkActive="active">Inicio</a></li>
-
-      <li><a routerLink="/libros" routerLinkActive="active">Libros</a></li>
-
-      <li *ngIf="isAdmin">
-        <details>
-          <summary>Administración</summary>
-          <ul class="p-2 bg-base-100 rounded-t-none z-50">
-            <li><a routerLink="/prestamos">Préstamos</a></li>
-            <li><a routerLink="/usuarios">Usuarios</a></li>
-            </ul>
-        </details>
+      <li>
+        <a routerLink="/" routerLinkActive="btn-active btn-ghost" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
       </li>
+      <li>
+        <a routerLink="/libros" routerLinkActive="btn-active btn-ghost">Catálogo de Libros</a>
+      </li>
+
+      @if (isAdmin) {
+        <li>
+          <details>
+            <summary class="font-bold text-primary">Gestión</summary>
+            <ul class="p-2 bg-base-100 w-40 z-[50] shadow-lg">
+              <li><a routerLink="/prestamos">Préstamos</a></li>
+              <li><a routerLink="/usuarios">Usuarios</a></li>
+            </ul>
+          </details>
+        </li>
+      }
     </ul>
   </div>
 
-  <div class="flex-none gap-2">
+  <div class="navbar-end gap-2">
 
-    <div *ngIf="!isLoggedIn">
-      <a routerLink="/login" class="btn btn-primary btn-sm">Iniciar Sesión</a>
-    </div>
+    @if (isLoggedIn) {
+      <span class="hidden md:inline font-medium text-sm mr-2">
+        Hola, {{ username }}
+      </span>
 
-    <div *ngIf="isLoggedIn" class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
-        <div class="bg-neutral text-neutral-content rounded-full w-10">
-          <span class="text-xs">{{ username?.slice(0,2)?.toUpperCase() }}</span>
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder bg-neutral text-neutral-content">
+          <div class="w-10 rounded-full">
+            <span>{{ username?.slice(0,2)?.toUpperCase() }}</span>
+          </div>
         </div>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li class="menu-title">Rol: {{ isAdmin ? 'Bibliotecario' : 'Estudiante' }}</li>
+          <li><a (click)="logout()" class="text-error">Cerrar Sesión</a></li>
+        </ul>
       </div>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li class="menu-title">Hola, {{ username }}</li>
-        <li><a (click)="logout()">Cerrar Sesión</a></li>
-      </ul>
-    </div>
+
+    } @else {
+      <a routerLink="/login" class="btn btn-primary btn-sm">
+        Ingresar
+      </a>
+    }
   </div>
 </div>

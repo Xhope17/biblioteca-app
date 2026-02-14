@@ -22,7 +22,7 @@ export class NavbarComponent {
   }
 
   get username(): string | null {
-    return this.authService.getUserData()?.username || null; // Asumiendo que agregaste este método, si no, usa getUserData().username
+    return this.authService.getUserData().username; // Asumiendo que agregaste este método, si no, usa getUserData().username
   }
 
   logout() {

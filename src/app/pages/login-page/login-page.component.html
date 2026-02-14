@@ -1,0 +1,56 @@
+<div class="hero min-h-[80vh] bg-base-200">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+
+    <div class="text-center lg:text-left ml-4">
+      <h1 class="text-5xl font-bold">Bienvenido!</h1>
+      <p class="py-6">Ingresa tus credenciales para acceder al sistema de gestión bibliotecaria.</p>
+    </div>
+
+    <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <form class="card-body" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Usuario / Correo</span>
+          </label>
+          <input
+            type="text"
+            formControlName="username"
+            placeholder="admin"
+            class="input input-bordered"
+            required />
+        </div>
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Contraseña</span>
+          </label>
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="••••••"
+            class="input input-bordered"
+            required />
+        </div>
+
+        @if (errorMessage) {
+          <div role="alert" class="alert alert-error mt-4 p-2 text-sm text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>{{ errorMessage }}</span>
+          </div>
+        }
+
+        <div class="form-control mt-6">
+          <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid || isLoading">
+            @if (isLoading) {
+              <span class="loading loading-spinner"></span>
+            }
+            Iniciar Sesión
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>
