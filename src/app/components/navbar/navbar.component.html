@@ -1,0 +1,43 @@
+<div class="navbar bg-base-100 shadow-md mb-4 rounded-box">
+  <div class="flex-1">
+    <a routerLink="/" class="btn btn-ghost text-xl">📚 BibliotecaApp</a>
+  </div>
+
+  <div class="flex-none hidden lg:flex">
+    <ul class="menu menu-horizontal px-1 gap-2">
+
+      <li><a routerLink="/" routerLinkActive="active">Inicio</a></li>
+
+      <li><a routerLink="/libros" routerLinkActive="active">Libros</a></li>
+
+      <li *ngIf="isAdmin">
+        <details>
+          <summary>Administración</summary>
+          <ul class="p-2 bg-base-100 rounded-t-none z-50">
+            <li><a routerLink="/prestamos">Préstamos</a></li>
+            <li><a routerLink="/usuarios">Usuarios</a></li>
+            </ul>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex-none gap-2">
+
+    <div *ngIf="!isLoggedIn">
+      <a routerLink="/login" class="btn btn-primary btn-sm">Iniciar Sesión</a>
+    </div>
+
+    <div *ngIf="isLoggedIn" class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+        <div class="bg-neutral text-neutral-content rounded-full w-10">
+          <span class="text-xs">{{ username?.slice(0,2)?.toUpperCase() }}</span>
+        </div>
+      </div>
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        <li class="menu-title">Hola, {{ username }}</li>
+        <li><a (click)="logout()">Cerrar Sesión</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
