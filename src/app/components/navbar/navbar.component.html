@@ -15,6 +15,7 @@
         @if (isAdmin) {
           <li class="menu-title text-opacity-50 mt-2">Administración</li>
           <li><a routerLink="/usuarios" routerLinkActive="active">Gestionar Usuarios</a></li>
+          <li><a routerLink="/prestamos" routerLinkActive="active">Libros Prestados</a></li>
           }
       </ul>
     </div>
@@ -44,6 +45,11 @@
                    👥 Usuarios
                 </a>
               </li>
+                <li>
+                  <a routerLink="/prestamos" routerLinkActive="text-primary font-bold">
+                    📖 Libros Prestados
+                  </a>
+                </li>     
               </ul>
           </details>
         </li>
