@@ -12,4 +12,9 @@ export class LibrosService {
   getLibros(): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.baseUrl}/Libros`);
   }
+
+  // --- NUEVO MÉTODO ---
+  createLibro(book: Book): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Libros`, book);
+  }
 }

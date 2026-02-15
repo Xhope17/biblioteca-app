@@ -1,0 +1,197 @@
+<dialog
+  id="modal_register_book"
+  class="modal modal-bottom sm:modal-middle transition-all duration-300 backdrop-blur-sm"
+>
+  <div
+    class="modal-box w-11/12 max-w-5xl bg-base-100 p-0 overflow-hidden shadow-2xl"
+  >
+    <div
+      class="bg-gradient-to-r from-primary to-secondary p-6 text-white flex justify-between items-center"
+    >
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-white/20 rounded-full backdrop-blur-md">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
+            />
+          </svg>
+        </div>
+        <h3 class="font-bold text-xl tracking-wide">Nuevo Libro</h3>
+      </div>
+      <button
+        (click)="close()"
+        class="btn btn-circle btn-ghost btn-sm text-white hover:bg-white/20 transition-colors"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div class="flex flex-col md:flex-row h-full">
+      <div
+        class="hidden md:flex md:w-1/3 bg-base-200/50 border-r border-base-200 p-8 flex-col items-center justify-center text-center relative overflow-hidden"
+      >
+        <div
+          class="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl mix-blend-multiply"
+        ></div>
+        <div
+          class="absolute -bottom-10 -right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl mix-blend-multiply"
+        ></div>
+
+        <div class="relative z-10 mb-6 group">
+          <div
+            class="w-40 h-60 bg-base-100 rounded-lg shadow-xl border border-base-300 flex items-center justify-center overflow-hidden transition-transform duration-500 group-hover:scale-105"
+          >
+            @if (imagenPreview) {
+              <img
+                [src]="imagenPreview"
+                class="w-full h-full object-cover"
+                onerror="this.style.display = 'none'"
+              />
+            }
+
+            @if (!imagenPreview) {
+              <div class="text-base-content/20 flex flex-col items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-16 h-16 mb-2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                  />
+                </svg>
+                <span class="text-xs font-bold uppercase">Sin Portada</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <h4 class="font-extrabold text-lg text-base-content/80">
+          Vista Previa
+        </h4>
+        <p class="text-sm text-base-content/60 px-4 mt-1">
+          Pega la URL de la imagen para ver cómo quedará en el catálogo.
+        </p>
+      </div>
+
+      <div class="md:w-2/3 p-8">
+        <form
+          [formGroup]="bookForm"
+          (ngSubmit)="onSubmit()"
+          class="flex flex-col h-full justify-between"
+        >
+          <div class="space-y-4">
+            <div class="form-control">
+              <label class="label"
+                ><span class="label-text font-bold"
+                  >Título del Libro</span
+                ></label
+              >
+              <input
+                type="text"
+                formControlName="titulo"
+                placeholder="Ej: Clean Code"
+                class="input input-bordered focus:input-primary transition-all"
+                [class.input-error]="
+                  bookForm.get('titulo')?.invalid &&
+                  bookForm.get('titulo')?.touched
+                "
+              />
+            </div>
+
+            <div class="form-control">
+              <label class="label"
+                ><span class="label-text font-bold">Autor</span></label
+              >
+              <input
+                type="text"
+                formControlName="autor"
+                placeholder="Ej: Robert C. Martin"
+                class="input input-bordered focus:input-primary transition-all"
+                [class.input-error]="
+                  bookForm.get('autor')?.invalid &&
+                  bookForm.get('autor')?.touched
+                "
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="form-control">
+                <label class="label"
+                  ><span class="label-text font-bold"
+                    >Cantidad (Stock)</span
+                  ></label
+                >
+                <input
+                  type="number"
+                  formControlName="stock"
+                  min="1"
+                  class="input input-bordered focus:input-primary transition-all"
+                  [class.input-error]="
+                    bookForm.get('stock')?.invalid &&
+                    bookForm.get('stock')?.touched
+                  "
+                />
+              </div>
+
+              <div class="form-control">
+                <label class="label"
+                  ><span class="label-text font-bold">URL de Portada</span>
+                  <span class="label-text-alt opacity-50"
+                    >(Opcional)</span
+                  ></label
+                >
+                <input
+                  type="text"
+                  formControlName="imagenUrl"
+                  placeholder="https://..."
+                  class="input input-bordered focus:input-primary transition-all text-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex justify-end gap-3 mt-8 pt-6 border-t border-base-200"
+          >
+            <button
+              type="button"
+              class="btn btn-ghost hover:bg-base-200"
+              (click)="close()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary px-8 shadow-lg shadow-primary/30"
+              [disabled]="bookForm.invalid || isLoading"
+            >
+              @if (isLoading) {
+                <span class="loading loading-spinner loading-sm"></span>
+              }
+              Guardar Libro
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <form method="dialog" class="modal-backdrop">
+    <button (click)="close()">close</button>
+  </form>
+</dialog>

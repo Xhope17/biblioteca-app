@@ -1,11 +1,19 @@
 export interface Loan {
-  idPrestamo?: number;
-  idUsuario: number;       // Cliente
-  idLibro: number;         // Libro
-  idBibliotecario: number; // Quién lo presta
-  cliente?: string;        // Solo para mostrar en tabla
-  libro?: string;          // Solo para mostrar en tabla
-  fechaPrestamo?: Date;
-  fechaDevolucion?: Date;
-  estado?: string;
+  idPrestamo: number;
+  fechaPrestamo: string;
+  fechaDevolucion?: string | null; // Si es null, sigue prestado
+  idLibro: number;
+  idUsuario: number;
+
+  // Datos anidados que vienen del Include() en el Backend
+  libro?: {
+    titulo: string;
+    imagenUrl?: string;
+    autor?: string;
+  };
+  usuario?: {
+    nombre: string;
+    apellido: string;
+    cedula: string;
+  };
 }

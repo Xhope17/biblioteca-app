@@ -3,17 +3,21 @@ import { CommonModule } from '@angular/common';
 import { LibrosService } from '../../services/libros.service';
 import { AuthService } from '../../services/auth.service';
 import { Book } from '../../interfaces/book.interface';
-// IMPORTANTE: Importar el Modal hijo aquí
 import { BookLoanModalComponent } from '../../components/book-loan-modal/book-loan-modal.component';
+import { BooksRegisterModalComponent } from '../../components/books-register-modal/books-register-modal.component';
 
 @Component({
   selector: 'app-books-page',
   standalone: true,
-  imports: [CommonModule, BookLoanModalComponent], // <--- EL PADRE IMPORTA AL HIJO
-  templateUrl: './books-page.component.html', // <--- APUNTA A SU PROPIO HTML
+  imports: [CommonModule, BookLoanModalComponent, BooksRegisterModalComponent],
+  templateUrl: './books-page.component.html',
 })
 export class BooksPageComponent implements OnInit {
-  // Referencia al hijo para poder abrirlo
+  // registrar libro nuevo
+  @ViewChild(BooksRegisterModalComponent)
+  modalRegister!: BooksRegisterModalComponent;
+
+  // Registrar préstamo
   @ViewChild(BookLoanModalComponent) modal!: BookLoanModalComponent;
 
   private librosService = inject(LibrosService);
@@ -37,11 +41,15 @@ export class BooksPageComponent implements OnInit {
         this.books = data;
         this.loading = false;
       },
-      error: () => this.loading = false
+      error: () => (this.loading = false),
     });
   }
 
   abrirModal(book: Book) {
-    this.modal.open(book); // Llama al método open() del hijo
+    this.modal.open(book);
+  }
+
+  abrirModalRegistro() {
+    this.modalRegister.open();
   }
 }
