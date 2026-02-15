@@ -3,19 +3,17 @@
     <div class="max-w-md">
       <h1 class="text-5xl font-bold text-primary">Biblioteca UG</h1>
       <p class="py-6">
-        Bienvenido al sistema de gestión bibliotecaria de la Facultad de Ingeniería.
-        Consulta nuestro acervo bibliográfico, revisa la disponibilidad y acércate
-        a ventanilla para solicitar tu material.
+        Bienvenido al sistema de gestión bibliotecaria de la Facultad de
+        Ingeniería. Consulta nuestro acervo bibliográfico, revisa la
+        disponibilidad y acércate a ventanilla para solicitar tu material.
       </p>
 
       <div class="flex justify-center gap-4">
-        <a routerLink="/libros" class="btn btn-primary">
-          Ver Catálogo
-        </a>
+        <a routerLink="/libros" class="btn btn-primary"> Ver Catálogo </a>
 
-        <a routerLink="/login" class="btn btn-outline">
-          Iniciar Sesión
-        </a>
+        @if (!isLoggedIn) {
+          <a routerLink="/login" class="btn btn-outline"> Iniciar Sesión </a>
+        }
       </div>
     </div>
   </div>
