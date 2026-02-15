@@ -16,19 +16,15 @@ export class AuthService {
     private router: Router,
   ) {}
 
-  // ==========================================================
-  // 1. LOGIN (Guardamos token y datos del usuario)
-  // ==========================================================
+  // LOGIN
   login(credentials: { username: string; password: string }) {
     return this.http
       .post<LoginResponse>(`${this.baseUrl}/Auth/login`, credentials)
       .pipe(
         tap((response) => {
-          // Si el login es exitoso, guardamos todo en el navegador
           if (response.token) {
             localStorage.setItem(this.tokenKey, response.token);
 
-            // Guardamos el objeto con rol e ID para usarlo fácil
             const userData = {
               username: response.username,
               role: response.role,
@@ -40,27 +36,26 @@ export class AuthService {
       );
   }
 
-  // ==========================================================
-  // 2. LOGOUT
-  // ==========================================================
+
+  //logout
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
     this.router.navigate(['/login']);
   }
 
-  // ==========================================================
-  // 3. GETTERS (Para obtener datos guardados)
-  // ==========================================================
+  // obtener datos guardados
+
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken(); // Devuelve true si existe token
+    return !!this.getToken();
   }
 
-  // Recuperar datos del usuario (Rol, ID, Nombre)
+  // datos del usuario rol, ID, Nombre
   getUserData() {
     const data = localStorage.getItem(this.userKey);
     return data ? JSON.parse(data) : null;

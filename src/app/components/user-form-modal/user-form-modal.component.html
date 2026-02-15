@@ -25,7 +25,9 @@
             />
           </svg>
         </div>
-        <h3 class="font-bold text-xl tracking-wide">Nuevo Usuario</h3>
+        <h3 class="font-bold text-xl tracking-wide">
+          {{ isEditing ? "Editar Usuario" : "Registrar Usuario" }}
+        </h3>
       </div>
       <button
         (click)="close()"
@@ -274,7 +276,7 @@
               @if (isLoading) {
                 <span class="loading loading-spinner loading-sm"></span>
               }
-              Registrar Usuario
+              {{ isEditing ? "Guardar Cambios" : "Registrar Usuario" }}
             </button>
           </div>
         </form>
