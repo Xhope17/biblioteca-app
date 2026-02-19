@@ -2,7 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -14,10 +19,10 @@ export class LoginPageComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // Definimos el formulario con validaciones
+  // formulario con validaciones
   loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required]],
-    password: ['', [Validators.required]]
+    password: ['', [Validators.required]],
   });
 
   errorMessage: string = '';
@@ -29,21 +34,21 @@ export class LoginPageComponent {
     this.isLoading = true;
     this.errorMessage = '';
 
-    // Extraemos los valores del formulario
+    // valores del formulario
     const credentials = this.loginForm.value;
 
     this.authService.login(credentials).subscribe({
       next: () => {
-        // Si el login es exitoso, redirigimos al Home
+        // Si es login redirigimos al Home
         this.isLoading = false;
         this.router.navigate(['/']);
       },
       error: (err) => {
-        // Si falla, mostramos el error
+        // Si falla
         this.isLoading = false;
         console.error('Error login:', err);
         this.errorMessage = 'Usuario o contraseña incorrectos.';
-      }
+      },
     });
   }
 }

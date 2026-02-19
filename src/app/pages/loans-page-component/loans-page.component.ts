@@ -23,30 +23,40 @@ export class LoansPageComponent implements OnInit {
     this.loading = true;
     this.loansService.getPrestamos().subscribe({
       next: (data) => {
-        // Opcional: Ordenar para que los pendientes salgan primero
+        //Ordenar para que los pendientes salgan primero
         this.loans = data.sort((a, b) => {
-          if (a.fechaDevolucion === null && b.fechaDevolucion !== null) return -1;
-          if (a.fechaDevolucion !== null && b.fechaDevolucion === null) return 1;
-          return new Date(b.fechaPrestamo).getTime() - new Date(a.fechaPrestamo).getTime();
+          if (a.fechaDevolucion === null && b.fechaDevolucion !== null)
+            return -1;
+          if (a.fechaDevolucion !== null && b.fechaDevolucion === null)
+            return 1;
+          return (
+            new Date(b.fechaPrestamo).getTime() -
+            new Date(a.fechaPrestamo).getTime()
+          );
         });
         this.loading = false;
       },
       error: (err) => {
         console.error(err);
         this.loading = false;
-      }
+      },
     });
   }
 
   devolverLibro(loan: Loan) {
-    if (!confirm(`¿Confirmar devolución del libro "${loan.libro?.titulo}"?`)) return;
+    if (!confirm(`¿Confirmar devolución del libro "${loan.libro?.titulo}"?`))
+      return;
 
     this.loansService.devolverLibro(loan.idPrestamo).subscribe({
       next: () => {
         alert('✅ Libro devuelto correctamente');
-        this.cargarPrestamos(); // Recargar la tabla para ver el cambio
+        this.cargarPrestamos(); // Recargar la tabla
       },
-      error: (err) => alert('❌ Error al devolver: ' + (err.error?.mensaje || 'Error desconocido'))
+      error: (err) =>
+        alert(
+          '❌ Error al devolver: ' +
+            (err.error?.mensaje || 'Error desconocido'),
+        ),
     });
   }
 }

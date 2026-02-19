@@ -15,7 +15,7 @@ export class UsersPageComponent implements OnInit {
   @ViewChild(UserFormModalComponent) modalUser!: UserFormModalComponent;
 
   private usersService = inject(UsersService);
-  public authService = inject(AuthService); // Public para usarlo en el HTML
+  public authService = inject(AuthService);
 
   users: User[] = [];
   loading = true;
@@ -49,7 +49,7 @@ export class UsersPageComponent implements OnInit {
     this.usersService.deleteUsuario(user.idUsuario).subscribe({
       next: () => {
         alert('Usuario eliminado');
-        this.cargarUsuarios(); // Recargamos la tabla
+        this.cargarUsuarios(); // Recargar la tabla
       },
       error: (err) => alert('Error al eliminar: ' + err.message),
     });

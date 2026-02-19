@@ -22,10 +22,18 @@
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow"
       >
         <li>
-          <a routerLink="/" routerLinkActive="text-primary font-bold">Inicio</a>
+          <a
+            routerLink="/"
+            class="btn btn-ghost"
+            routerLinkActive="text-secondary"
+            >Inicio</a
+          >
         </li>
         <li>
-          <a routerLink="/libros" routerLinkActive="text-primary font-bold"
+          <a
+            routerLink="/libros"
+            class="btn btn-ghost"
+            routerLinkActive="text-secondary font-bold"
             >Catálogo de Libros</a
           >
         </li>
@@ -33,12 +41,16 @@
         @if (isAdmin) {
           <li class="menu-title text-opacity-50 mt-2">Administración</li>
           <li>
-            <a routerLink="/usuarios" routerLinkActive="active"
+            <a
+              routerLink="/usuarios"
+              routerLinkActive="text-secondary font-bold"
               >Gestionar Usuarios</a
             >
           </li>
           <li>
-            <a routerLink="/prestamos" routerLinkActive="active"
+            <a
+              routerLink="/prestamos"
+              routerLinkActive="text-secondary font-bold"
               >Libros Prestados</a
             >
           </li>
@@ -51,31 +63,34 @@
     </a>
   </div>
 
+  <!-- Usuario normal -->
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1 gap-1">
       <li>
         <a
           routerLink="/"
-          routerLinkActive="btn-active btn-ghost"
+          routerLinkActive="text-secondary font-bold"
           [routerLinkActiveOptions]="{ exact: true }"
           >Inicio</a
         >
       </li>
       <li>
-        <a routerLink="/libros" routerLinkActive="btn-active btn-ghost"
+        <a routerLink="/libros" routerLinkActive="text-secondary font-bold"
           >Catálogo de Libros</a
         >
       </li>
 
+      <!-- gestión -->
+
       @if (isAdmin) {
         <li>
           <details>
-            <summary class="font-bold text-primary">Gestión</summary>
+            <summary class="font-bold">Gestión</summary>
             <ul class="p-2 bg-base-100 w-48 z-[50] shadow-lg rounded-box">
               <li>
                 <a
                   routerLink="/usuarios"
-                  routerLinkActive="text-primary font-bold"
+                  routerLinkActive="text-secondary font-bold"
                 >
                   👥 Usuarios
                 </a>
@@ -84,7 +99,7 @@
               <li>
                 <a
                   routerLink="/prestamos"
-                  routerLinkActive="text-primary font-bold"
+                  routerLinkActive="text-secondary font-bold"
                 >
                   📖 Libros Prestados
                 </a>
@@ -95,6 +110,8 @@
       }
     </ul>
   </div>
+
+  <!-- Login -->
 
   <div class="navbar-end gap-2">
     @if (isLoggedIn) {
