@@ -28,21 +28,25 @@ export class BookLoanModalComponent {
   usuariosMostrados: User[] = [];
 
   idUsuarioSeleccionado: number | null = null;
-  textoFiltro: string = ''; // Lo que escribes en el buscador
+  textoFiltro: string = '';
   isLoading = false;
 
   open(libroRecibido: Book) {
     this.libro = libroRecibido;
     this.idUsuarioSeleccionado = null;
-    this.textoFiltro = ''; // Limpiar filtro al abrir
+    this.textoFiltro = '';
     this.cargarUsuarios();
 
-    const modal = document.getElementById('modal_prestamo_component') as HTMLDialogElement;
+    const modal = document.getElementById(
+      'modal_prestamo_component',
+    ) as HTMLDialogElement;
     if (modal) modal.showModal();
   }
 
   close() {
-    const modal = document.getElementById('modal_prestamo_component') as HTMLDialogElement;
+    const modal = document.getElementById(
+      'modal_prestamo_component',
+    ) as HTMLDialogElement;
     if (modal) modal.close();
   }
 
@@ -55,23 +59,21 @@ export class BookLoanModalComponent {
 
     // Si no, cargamos de la API
     this.usuariosService.getUsuarios().subscribe((data) => {
-      this.allUsuarios = data;      // Guardamos la copia original
-      this.usuariosMostrados = data; // Mostramos todos al principio
+      this.allUsuarios = data;
+      this.usuariosMostrados = data;
     });
   }
 
-  // ESTA FUNCIÓN FILTRA LA LISTA DEL SELECT
+  // FILTRA LA LISTA DEL SELECT
   filtrarUsuarios() {
     const termino = this.textoFiltro.toLowerCase();
 
-    this.usuariosMostrados = this.allUsuarios.filter(u =>
-      u.nombre.toLowerCase().includes(termino) ||
-      u.apellido.toLowerCase().includes(termino) ||
-      u.cedula.includes(termino)
+    this.usuariosMostrados = this.allUsuarios.filter(
+      (u) =>
+        u.nombre.toLowerCase().includes(termino) ||
+        u.apellido.toLowerCase().includes(termino) ||
+        u.cedula.includes(termino),
     );
-
-    // Si el usuario seleccionado desaparece del filtro, lo deseleccionamos (opcional)
-    // this.idUsuarioSeleccionado = null;
   }
 
   confirmar() {
@@ -81,9 +83,9 @@ export class BookLoanModalComponent {
     const adminData = this.authService.getUserData();
 
     if (!adminData || !adminData.idBibliotecario) {
-        alert("Error de sesión");
-        this.isLoading = false;
-        return;
+      alert('Error de sesión');
+      this.isLoading = false;
+      return;
     }
 
     const prestamoDto = {

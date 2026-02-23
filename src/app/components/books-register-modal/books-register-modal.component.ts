@@ -13,7 +13,7 @@ export class BooksRegisterModalComponent {
   private fb = inject(FormBuilder);
   private librosService = inject(LibrosService);
 
-  @Output() bookCreated = new EventEmitter<void>(); // Avisar al padre para recargar
+  @Output() bookCreated = new EventEmitter<void>();
 
   bookForm: FormGroup;
   isLoading = false;

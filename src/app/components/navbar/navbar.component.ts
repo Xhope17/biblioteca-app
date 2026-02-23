@@ -10,9 +10,8 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
-  authService = inject(AuthService); // Inyección moderna
+  authService = inject(AuthService);
 
-  // Getters para usar en el HTML de forma limpia
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
